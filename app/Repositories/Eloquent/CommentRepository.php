@@ -10,7 +10,14 @@ class CommentRepository implements CommentRepositoryInterface
 
     public function index()
     {
-        // TODO: Implement index() method.
+        //
+    }
+
+    public function getProductComments(int $product_id, array $data)
+    {
+        $limit = $data['limit'] ?? 3;
+
+        return Comment::product($product_id)->approved()->latest()->limit($limit)->all();
     }
 
     public function show(int $id)
@@ -33,5 +40,10 @@ class CommentRepository implements CommentRepositoryInterface
     public function destroy($comment)
     {
         $comment->delete();
+    }
+
+    public function getProductTotalComments(int $product_id)
+    {
+        return Comment::product($product_id)->approved()->count();
     }
 }
