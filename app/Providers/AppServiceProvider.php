@@ -2,8 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Vote;
 use App\Models\Comment;
 use App\Observers\CommentObserver;
+use App\Observers\VoteObserver;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -25,6 +27,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
+        Vote::observe(VoteObserver::class);
         Comment::observe(CommentObserver::class);
     }
 }
