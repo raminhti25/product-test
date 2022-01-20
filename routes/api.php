@@ -27,6 +27,7 @@ use App\Http\Controllers\CommentController;
 Route::group(['as' => 'products.', 'prefix' => 'products'], function () {
     Route::get('/',[ProductController::class,'index'])->name('index');
     Route::post('/',[ProductController::class,'store'])->name('store');
+    Route::get('/{id}',[ProductController::class,'show'])->name('show');
     Route::match(['put', 'patch'], '/{id}',[ProductController::class,'update'])->name('update');
     Route::delete('/{id}',[ProductController::class,'destroy'])->name('destroy');
 

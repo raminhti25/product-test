@@ -2,9 +2,10 @@
 
 namespace App\Repositories\Eloquent;
 
+use App\Interfaces\VoteRepositoryInterface;
 use App\Models\Vote;
 
-class VoteRepository
+class VoteRepository implements VoteRepositoryInterface
 {
     public function index()
     {
@@ -31,5 +32,10 @@ class VoteRepository
     public function destroy($vote)
     {
         $vote->delete();
+    }
+
+    public function averageVote(int $product_id)
+    {
+        return Vote::product($product_id)->approved()->average('value');
     }
 }
