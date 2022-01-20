@@ -25,4 +25,9 @@ class Product extends Model
     {
         $this->attributes['edit_by_visitor_enabled'] = in_array($value, [true, 'true', 1, '1']) ? 1 : 0;
     }
+
+    public function provider()
+    {
+        return $this->belongsTo(Provider::class, 'provider_id');
+    }
 }

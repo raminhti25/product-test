@@ -9,9 +9,11 @@ use App\Interfaces\ProductRepositoryInterface;
 class ProductRepository implements ProductRepositoryInterface
 {
 
-    public function index()
+    public function index(array $data)
     {
-        // TODO: Implement index() method.
+        $products = Product::with('provider')->latest();
+
+        return $products->paginate($data['per_page'] ?? 10, '*', 'page', $data['page'] ?? 1);
     }
 
     public function show(int $id)
