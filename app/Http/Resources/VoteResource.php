@@ -14,6 +14,12 @@ class VoteResource extends JsonResource
      */
     public function toArray($request)
     {
-        return parent::toArray($request);
+        return [
+            'id' => $this->id,
+            'product_id' => $this->product_id,
+            'user_id' => $this->user_id,
+            'value' => $this->value,
+            'status' => $this->status,
+        ];
     }
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\VoteResource;
 use App\Http\Requests\CreateVoteRequest;
 use App\Http\Requests\UpdateVoteRequest;
 use App\Interfaces\VoteRepositoryInterface;
@@ -41,7 +42,7 @@ class VoteController extends Controller
 
         $vote = $this->repository->store(array_merge($data, ['product_id', $product_id]));
 
-        return response(['data' => $vote, 'message' => trans('message.created')], 201);
+        return response(['data' => new VoteResource($vote), 'message' => trans('message.created')], 201);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\CommentResource;
 use App\Http\Requests\CreateCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Repositories\Eloquent\CommentRepository;
@@ -41,7 +42,7 @@ class CommentController extends Controller
 
         $comment = $this->repository->store(array_merge($data, ['product_id', $product_id]));
 
-        return response(['data' => $comment, 'message' => trans('message.created')], 201);
+        return response(['data' => new CommentResource($comment), 'message' => trans('message.created')], 201);
     }
 
     /**

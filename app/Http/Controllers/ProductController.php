@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Http\Resources\ProductResource;
 use App\Http\Requests\UpdateProductRequest;
 use App\Http\Requests\CreateProductRequest;
 use App\Interfaces\ProductRepositoryInterface;
@@ -36,7 +37,7 @@ class ProductController extends Controller
     {
         $product = $this->repository->store($request->all());
 
-        return response(['data' => $product, 'message' => trans('message.created')], 201);
+        return response(['data' => new ProductResource($product), 'message' => trans('message.created')], 201);
     }
 
     /**
