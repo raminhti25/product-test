@@ -2,11 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Comment;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\CommentResource;
 use App\Http\Resources\CommentCollection;
 use App\Http\Requests\CreateCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
+use App\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Eloquent\CommentRepository;
 
 class CommentController extends Controller
@@ -36,11 +39,21 @@ class CommentController extends Controller
     /**
      * @param CreateCommentRequest $request
      * @param int $product_id
+     * @param ProductRepositoryInterface $product_repository
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function store(CreateCommentRequest $request, int $product_id)
-    {
-        //TODO check if user can leave comment
+    public function store(
+        CreateCommentRequest $request,
+        int $product_id,
+        ProductRepositoryInterface $product_repository
+    ) {
+        $product = $product_repository->show($product_id);
+
+        $response = Gate::inspect('create', [Comment::class, $product]);
+
+        if (!$response->allowed()) {
+            return $response->message();
+        }
 
         $request->request->add(['product_id' => $product_id, 'user_id' => 0]);
 

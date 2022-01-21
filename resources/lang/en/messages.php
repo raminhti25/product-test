@@ -16,4 +16,8 @@ return [
     'created' => 'Created successfully',
     'updated' => 'Updated successfully',
 
+    'errors' => [
+        'cant_leave_comment' => 'You cannot leave comment on this product'
+    ]
+
 ];

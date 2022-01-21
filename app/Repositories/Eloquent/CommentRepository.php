@@ -10,7 +10,7 @@ class CommentRepository implements CommentRepositoryInterface
 
     public function index(array $data)
     {
-        $comments = Comment::with('provider')->latest();
+        $comments = Comment::latest();
 
         return $comments->paginate($data['per_page'] ?? 10, '*', 'page', $data['page'] ?? 1);
     }
