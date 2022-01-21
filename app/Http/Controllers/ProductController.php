@@ -67,7 +67,7 @@ class ProductController extends Controller
     {
         $product = $this->repository->store($request->all());
 
-        return response(['data' => new ProductResource($product), 'message' => trans('message.created')], 201);
+        return response(['data' => new ProductResource($product), 'message' => trans('messages.created')], 201);
     }
 
     /**

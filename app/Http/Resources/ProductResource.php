@@ -16,7 +16,9 @@ class ProductResource extends JsonResource
         parent::__construct($resource);
         $this->resource = $resource;
 
-        list('comments' => $this->comments, 'votes_average' => $this->votes_average, 'total_comments' => $this->total_comments) = $params;
+        $this->comments = $params['comments'] ?? [];
+        $this->votes_average = $params['votes_average'] ?? 0;
+        $this->total_comments = $params['total_comments'] ?? 0;
     }
 
     /**
