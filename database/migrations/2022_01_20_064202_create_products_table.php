@@ -17,9 +17,9 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->unsignedInteger('provider_id');
-            $table->boolean('vote_enabled');
-            $table->boolean('comment_enabled');
-            $table->boolean('edit_by_visitor_enabled');
+            $table->boolean('vote_enabled')->default(1);
+            $table->boolean('comment_enabled')->default(1);
+            $table->boolean('edit_by_visitor_enabled')->default(1);
             $table->timestamps();
 
 /*            $table->foreignId('provider_id')
