@@ -16,13 +16,9 @@ class CreateVotesTable extends Migration
         Schema::create('votes', function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('value');
+            $table->unsignedInteger('user_id');
             $table->enum('status', ['pending', 'approved']);
             $table->timestamps();
-
-            $table->foreignId('user_id')
-                ->references('id')
-                ->on('users')
-                ->onDelete('cascade');
 
             $table->foreignId('product_id')
                 ->references('id')
