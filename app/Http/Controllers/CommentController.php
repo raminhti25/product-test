@@ -40,13 +40,13 @@ class CommentController extends Controller
      */
     public function store(CreateCommentRequest $request, int $product_id)
     {
-        $data = $request->all();
-
         //TODO check if user can leave comment
 
-        $comment = $this->repository->store(array_merge($data, ['product_id', $product_id]));
+        $request->request->add(['product_id' => $product_id, 'user_id' => 0]);
 
-        return response(['data' => new CommentResource($comment), 'message' => trans('message.created')], 201);
+        $comment = $this->repository->store($request->all());
+
+        return response(['data' => new CommentResource($comment), 'message' => trans('messages.created')], 201);
     }
 
     /**
