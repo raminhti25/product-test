@@ -17,7 +17,8 @@ return [
     'updated' => 'Updated successfully',
 
     'errors' => [
-        'cant_leave_comment' => 'You cannot leave comment on this product'
+        'cant_leave_comment' => 'You cannot leave comment on this product',
+        'cant_vote' => 'You cannot vote on this product'
     ]
 
 ];

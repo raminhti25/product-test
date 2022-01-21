@@ -7,9 +7,9 @@ use App\Models\Vote;
 
 class VoteRepository implements VoteRepositoryInterface
 {
-    public function index()
+    public function index(array $data)
     {
-        $votes = Vote::with('provider')->latest();
+        $votes = Vote::latest();
 
         return $votes->paginate($data['per_page'] ?? 10, '*', 'page', $data['page'] ?? 1);
     }

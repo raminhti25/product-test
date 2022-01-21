@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Vote;
 use Illuminate\Http\Request;
 use App\Http\Resources\VoteResource;
+use Illuminate\Support\Facades\Gate;
 use App\Http\Resources\VoteCollection;
 use App\Http\Requests\CreateVoteRequest;
 use App\Http\Requests\UpdateVoteRequest;
 use App\Interfaces\VoteRepositoryInterface;
+use App\Interfaces\ProductRepositoryInterface;
 
 class VoteController extends Controller
 {
@@ -36,17 +39,24 @@ class VoteController extends Controller
     /**
      * @param CreateVoteRequest $request
      * @param int $product_id
+     * @param ProductRepositoryInterface $product_repository
      * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
-    public function store(CreateVoteRequest $request, int $product_id)
+    public function store(CreateVoteRequest $request, int $product_id, ProductRepositoryInterface $product_repository)
     {
-        $data = $request->all();
+        $product = $product_repository->show($product_id);
 
-        //TODO check if user can vote
+        $response = Gate::inspect('create', [Vote::class, $product]);
 
-        $vote = $this->repository->store(array_merge($data, ['product_id', $product_id]));
+        if (!$response->allowed()) {
+            return $response->message();
+        }
 
-        return response(['data' => new VoteResource($vote), 'message' => trans('message.created')], 201);
+        $request->request->add(['product_id' => $product_id, 'user_id' => 0]);
+
+        $vote = $this->repository->store($request->all());
+
+        return response(['data' => new VoteResource($vote), 'message' => trans('messages.created')], 201);
     }
 
     /**
