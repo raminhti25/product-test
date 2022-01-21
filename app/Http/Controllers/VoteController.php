@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\VoteResource;
+use App\Http\Resources\VoteCollection;
 use App\Http\Requests\CreateVoteRequest;
 use App\Http\Requests\UpdateVoteRequest;
 use App\Interfaces\VoteRepositoryInterface;
@@ -23,10 +24,13 @@ class VoteController extends Controller
 
     /**
      * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        //
+        $votes = $this->repository->index($request->all());
+
+        return response(new VoteCollection($votes));
     }
 
     /**

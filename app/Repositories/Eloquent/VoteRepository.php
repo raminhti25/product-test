@@ -9,7 +9,9 @@ class VoteRepository implements VoteRepositoryInterface
 {
     public function index()
     {
-        // TODO: Implement index() method.
+        $votes = Vote::with('provider')->latest();
+
+        return $votes->paginate($data['per_page'] ?? 10, '*', 'page', $data['page'] ?? 1);
     }
 
     public function show(int $id)

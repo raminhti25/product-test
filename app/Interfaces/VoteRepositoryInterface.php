@@ -5,7 +5,7 @@ namespace App\Interfaces;
 
 interface VoteRepositoryInterface
 {
-    public function index();
+    public function index(array $data);
     public function show(int $id);
     public function averageVote(int $product_id);
     public function store(array $data);
