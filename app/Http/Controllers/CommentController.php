@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Http\Resources\CommentResource;
+use App\Http\Resources\CommentCollection;
 use App\Http\Requests\CreateCommentRequest;
 use App\Http\Requests\UpdateCommentRequest;
 use App\Repositories\Eloquent\CommentRepository;
@@ -23,10 +24,13 @@ class CommentController extends Controller
 
     /**
      * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|\Illuminate\Http\Response
      */
     public function index(Request $request)
     {
-        //
+        $comments = $this->repository->index($request->all());
+
+        return response(new CommentCollection($comments));
     }
 
     /**

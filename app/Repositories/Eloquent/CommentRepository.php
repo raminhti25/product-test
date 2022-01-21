@@ -8,9 +8,11 @@ use App\Interfaces\CommentRepositoryInterface;
 class CommentRepository implements CommentRepositoryInterface
 {
 
-    public function index()
+    public function index(array $data)
     {
-        //
+        $comments = Comment::with('provider')->latest();
+
+        return $comments->paginate($data['per_page'] ?? 10, '*', 'page', $data['page'] ?? 1);
     }
 
     public function getProductComments(int $product_id, array $data)
