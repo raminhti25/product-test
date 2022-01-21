@@ -144,6 +144,9 @@ return [
         'attribute-name' => [
             'rule-name' => 'custom-message',
         ],
+        'status' => [
+            'in' => 'Status must be pending or approved'
+        ]
     ],
 
     /*

@@ -14,7 +14,12 @@ class UpdateCommentRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
+    }
+
+    public function messages()
+    {
+        return ['status.in' => trans('validation.custom.status.in')];
     }
 
     /**
@@ -25,7 +30,7 @@ class UpdateCommentRequest extends FormRequest
     public function rules()
     {
         return [
-            'description' => 'required|text',
+            'description' => 'sometimes|required|text',
             'status' => 'in:' . Comment::PENDING . ',' . Comment::APPROVED
         ];
     }
