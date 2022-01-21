@@ -32,7 +32,7 @@ class ProductController extends Controller
     {
         $products = $this->repository->index($request->all());
 
-        return response(new ProductCollection($products));
+        return response($products);
     }
 
     /**
