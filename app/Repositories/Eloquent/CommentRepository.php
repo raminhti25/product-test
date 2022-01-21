@@ -19,7 +19,7 @@ class CommentRepository implements CommentRepositoryInterface
     {
         $limit = $data['limit'] ?? 3;
 
-        return Comment::product($product_id)->approved()->latest()->limit($limit)->all();
+        return Comment::product($product_id)->approved()->latest()->limit($limit)->get();
     }
 
     public function show(int $id)

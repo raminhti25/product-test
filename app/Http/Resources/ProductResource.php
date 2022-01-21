@@ -12,12 +12,12 @@ class ProductResource extends JsonResource
 
     public function __construct($resource, array $params=[])
     {
-        // Ensure you call the parent constructor
         parent::__construct($resource);
+
         $this->resource = $resource;
 
         $this->comments = $params['comments'] ?? [];
-        $this->votes_average = $params['votes_average'] ?? 0;
+        $this->votes_average = (int)$params['votes_average'] ?? 0;
         $this->total_comments = $params['total_comments'] ?? 0;
     }
 
