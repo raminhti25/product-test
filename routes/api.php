@@ -32,7 +32,7 @@ Route::group(['as' => 'products.', 'prefix' => 'products'], function () {
     Route::delete('/{id}',[ProductController::class,'destroy'])->name('destroy');
 
     //comments routes
-    Route::group(['as' => 'comments.', 'prefix' => 'products/{product_id}/comments'], function () {
+    Route::group(['as' => 'comments.', 'prefix' => '/{product_id}/comments'], function () {
         Route::get('/',[CommentController::class,'index'])->name('index');
         Route::post('/',[CommentController::class,'store'])->name('store');
         Route::match(['put', 'patch'], '/{id}',[CommentController::class,'update'])->name('update');
@@ -40,7 +40,7 @@ Route::group(['as' => 'products.', 'prefix' => 'products'], function () {
     });
 
     //votes routes
-    Route::group(['as' => 'votes.', 'prefix' => 'products/{product_id}/votes'], function () {
+    Route::group(['as' => 'votes.', 'prefix' => '/{product_id}/votes'], function () {
         Route::get('/',[VoteController::class,'index'])->name('index');
         Route::post('/',[VoteController::class,'store'])->name('store');
         Route::match(['put', 'patch'], '/{id}',[VoteController::class,'update'])->name('update');
